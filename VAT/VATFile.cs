@@ -4,29 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WMPLib;
+using System.Diagnostics;
 
 namespace VAT
 {
+    [DebuggerDisplay("{Name}")]
     public class VATFile
     {
-        private readonly string fullpath;
-        public string Fullpath 
-        { 
-            get { return this.fullpath; } 
-            set; 
-        }
-        private readonly string name;
-        public string Name
-        {
-            get { return this.name; }
-            set;
-        }
-        private readonly string extension;
-        public string Extension 
-        {
-            get { return this.extension; }
-            set;
-        }
+        public string Fullpath { get; private set; }
+        public string Name {get;private set;}
+        public string Extension { get; private set; }
+        public TimeSpan Duration { get; private set; }
 
         /// <summary>
         /// Creates a VatFile. 
@@ -38,9 +27,10 @@ namespace VAT
 
             if (File.Exists(@path))
             {
-                this.fullpath = @path;
-                this.extension = Path.GetExtension(this.Fullpath);
-                this.name = Path.GetFileName(this.Fullpath);
+                this.Fullpath = @path;
+                this.Extension = Path.GetExtension(this.Fullpath);
+                this.Name = Path.GetFileName(this.Fullpath);
+                this.Duration = TimeSpan.FromSeconds(new WindowsMediaPlayer().newMedia(this.Fullpath).duration);
             }
             else
             {

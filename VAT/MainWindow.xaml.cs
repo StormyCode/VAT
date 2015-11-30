@@ -23,6 +23,7 @@ namespace VAT
         public MainWindow()
         {
             InitializeComponent();
+            VATFile vat1 = new VATFile(@"C:\Users\Julian\Desktop\Die Tribute von Panem - Mockingjay\Die Tribute von Panem - Mockingjay (Teil 1).avi");
         }
     }
 }
